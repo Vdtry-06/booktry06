@@ -18,3 +18,7 @@ jwt:
   signerKey: "${JWT_SINGNER_KEY}"
   valid-duration: ${JWT_VALID_DURATION:3600} # in seconds
   refreshable-duration: ${JWT_REFRESH_DURATION:36000} # in seconds
+
+app:
+  services:
+    profile: http://localhost:8081/profile

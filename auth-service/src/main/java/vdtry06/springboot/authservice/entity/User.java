@@ -1,6 +1,5 @@
 package vdtry06.springboot.authservice.entity;
 
-import java.time.LocalDate;
 import java.util.Set;
 
 import jakarta.persistence.*;
@@ -24,9 +23,6 @@ public class User {
     String username;
     String password;
     String email;
-    String firstName;
-    String lastName;
-    LocalDate dateOfBirth;
 
     @ManyToMany
     Set<Role> roles;

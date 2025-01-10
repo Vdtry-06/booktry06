@@ -22,9 +22,12 @@ import vdtry06.springboot.authservice.entity.Role;
 import vdtry06.springboot.authservice.entity.User;
 import vdtry06.springboot.authservice.exception.AppException;
 import vdtry06.springboot.authservice.exception.ErrorCode;
+import vdtry06.springboot.authservice.mapper.ProfileMapper;
 import vdtry06.springboot.authservice.mapper.UserMapper;
 import vdtry06.springboot.authservice.repository.RoleRepository;
 import vdtry06.springboot.authservice.repository.UserRepository;
+import vdtry06.springboot.authservice.repository.httpclient.ProfileClient;
+
 
 @Slf4j
 @Service
@@ -35,6 +38,8 @@ public class UserService {
     RoleRepository roleRepository;
     PasswordEncoder passwordEncoder;
     UserMapper userMapper;
+    ProfileClient profileClient;
+    ProfileMapper profileMapper;
 
     public UserResponse createUser(UserCreationRequest request) {
         if (userRepository.existsByUsername(request.getUsername())) throw new AppException(ErrorCode.USERNAME_EXISTED);
@@ -51,6 +56,11 @@ public class UserService {
 
         try {
             user = userRepository.save(user);
+            var profileRequest = profileMapper.toProfileCreationRequest(request);
+            profileRequest.setUserId(user.getId());
+
+            profileClient.createProfile(profileRequest);
+
         } catch (DataIntegrityViolationException exception) {
             throw new AppException(ErrorCode.USERNAME_EXISTED);
         }

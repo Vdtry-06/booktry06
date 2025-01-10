@@ -32,4 +32,6 @@ public class UserCreationRequest {
 
     @BirthConstraint(min = 16, message = "INVALID_BIRTHDAY")
     LocalDate dateOfBirth;
+
+    String city;
 }
