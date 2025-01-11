@@ -1,16 +1,13 @@
-package vdtry06.springboot.authservice.dto.response;
+package vdtry06.springboot.gateway.api_gateway.dto.request;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
-import java.util.Date;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class AuthenticationResponse {
+public class IntrospectRequest {
     String token;
-    Date expiryTime;
 }
