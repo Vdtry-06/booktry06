@@ -4,10 +4,10 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.web.bind.annotation.*;
-import vdtry06.springboot.profile.profile_service.dto.request.UserProfileCreationRequest;
 import vdtry06.springboot.profile.profile_service.dto.request.UserProfileUpdationRequest;
 import vdtry06.springboot.profile.profile_service.dto.response.UserProfileResponse;
 import vdtry06.springboot.profile.profile_service.service.UserProfileService;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -15,14 +15,14 @@ import vdtry06.springboot.profile.profile_service.service.UserProfileService;
 public class UserProfileController {
     UserProfileService userProfileService;
 
-    @PostMapping("/users")
-    UserProfileResponse createProfile(@RequestBody UserProfileCreationRequest request) {
-        return userProfileService.createProfile(request);
-    }
+//    @PostMapping("/users")
+//    UserProfileResponse createProfile(@RequestBody UserProfileCreationRequest request) {
+//        return userProfileService.createProfile(request);
+//    }
 
     @GetMapping("/users/{profileId}")
-    UserProfileResponse getAllProfiles(@PathVariable String profileId) {
-        return userProfileService.getAllProfiles(profileId);
+    UserProfileResponse getProfile(@PathVariable String profileId) {
+        return userProfileService.getProfile(profileId);
     }
 
     @PostMapping("/users/{profileId}")
@@ -30,9 +30,4 @@ public class UserProfileController {
         return userProfileService.updateProfile(profileId, request);
     }
 
-    @DeleteMapping("/users/{profileId}")
-    String deleteProfile(@PathVariable String profileId) {
-        userProfileService.deleteProfile(profileId);
-        return "user profile deleted";
-    }
 }

@@ -12,6 +12,8 @@ import vdtry06.springboot.profile.profile_service.entity.UserProfile;
 import vdtry06.springboot.profile.profile_service.mapper.UserProfileMapper;
 import vdtry06.springboot.profile.profile_service.repository.UserProfileRepository;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -27,10 +29,14 @@ public class UserProfileService {
         return userProfileMapper.toUserProfileResponse(userProfile);
     }
 
-    public UserProfileResponse getAllProfiles(String profileId) {
+    public UserProfileResponse getProfile(String profileId) {
         UserProfile userProfile = userProfileRepository.findById(profileId)
                 .orElseThrow(() -> new RuntimeException("Profile not found"));
         return userProfileMapper.toUserProfileResponse(userProfile);
+    }
+
+    public List<UserProfileResponse> getAllProfiles() {
+        return userProfileRepository.findAll().stream().map(userProfileMapper::toUserProfileResponse).toList();
     }
 
     public UserProfileResponse updateProfile(String profileId, UserProfileUpdationRequest request) {

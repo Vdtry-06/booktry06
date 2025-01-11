@@ -88,6 +88,8 @@ public class UserService {
     @PreAuthorize("hasRole('ADMIN')")
     public List<UserResponse> getUsers() {
         log.info("Getting all users");
+
+        profileClient.getAllProfiles();
         return userRepository.findAll().stream().map(userMapper::toUserResponse).toList();
     }
 
@@ -104,6 +106,8 @@ public class UserService {
             log.info("User not existed!");
             throw new AppException(ErrorCode.USER_NOT_EXISTED);
         }
+
+        profileClient.deleteProfile(id);
 
         log.info("Deleting user {}", id);
         userRepository.deleteById(id);
